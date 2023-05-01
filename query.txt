@@ -1,0 +1,55 @@
+create database Fondoqy
+--------------------------------------------------------
+use Fondoqy;
+GO
+CREATE TABLE Employee(
+id int identity(1,1),
+Fname nvarchar(25) not null,
+Lname nvarchar(25) not null,
+password nvarchar(16),
+salary int,
+pNumber nvarchar(13) unique,
+address nvarchar(50) NOT NULL,
+gender nvarchar(6) not null,
+constraint username_pk PRIMARY KEY (id)
+);
+--------------------------------------------------------
+CREATE TABLE rooms(
+rNumber int not null,
+rPhone nvarchar(50),
+rType nvarchar(50),
+PRIMARY KEY (rNumber)
+);
+--------------------------------------------------------
+CREATE TABLE guests(
+fName nvarchar(50),
+lName nvarchar(50),
+pNumber nvarchar(13),
+gID int not null identity(1,1),
+PRIMARY KEY (gID)
+);
+--------------------------------------------------------
+CREATE TABLE [dbo].[reservations](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[rType] [nvarchar](50) NOT NULL,
+	[rNumber] [int] NOT NULL,
+	[chInDate] [date] NOT NULL,
+	[chOutDate] [date] NOT NULL,
+	[gID] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[reservations]  WITH CHECK ADD FOREIGN KEY([rNumber])
+REFERENCES [dbo].[rooms] ([rID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [dbo].[reservations]  WITH CHECK ADD FOREIGN KEY([gID])
+REFERENCES [dbo].[guests] ([gID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
