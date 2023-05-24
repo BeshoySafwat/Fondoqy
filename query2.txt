@@ -1,4 +1,4 @@
-create database Fondoqy
+Create database Fondoqy
 --------------------------------------------------------
 use Fondoqy;
 GO
